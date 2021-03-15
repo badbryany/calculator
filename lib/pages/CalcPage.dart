@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../Widgets.dart';
+import './calc/SdPythagoras.dart';
+import './ExtraCalcPage.dart';
 
 class CalcPage extends StatefulWidget {
   @override
@@ -52,6 +54,10 @@ class _CalcPageState extends State<CalcPage> {
     {'text': '0', 'type': 'large'},
     {'text': '.', 'type': 'normal'},
     {'text': '=', 'type': 'solve'},
+  ];
+
+  List<dynamic> popUpItems = [
+    {'text': 'Satz des Pythagoras', 'link': SdPythagoras()},
   ];
 
   String value = '';
@@ -150,6 +156,38 @@ class _CalcPageState extends State<CalcPage> {
           width: double.infinity,
           child: Stack(
             children: [
+              // MENU
+              Positioned(
+                top: 10,
+                left: 10,
+                child: PopupMenuButton(
+                  child: Icon(Icons.more_vert),
+                  onSelected: (value) {
+                    if (value.runtimeType == SdPythagoras) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ExtraCalcPage(
+                              'Satz des Phytagoras', SdPythagoras()),
+                        ),
+                      );
+                    } else {
+                      print('nö');
+                    }
+                  },
+                  itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                    ...popUpItems.map(
+                      (e) => PopupMenuItem(
+                        child: Text(
+                          'Satz des Pythagoras',
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        value: SdPythagoras(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               // EQUATION
               Container(
                 margin: EdgeInsets.only(
