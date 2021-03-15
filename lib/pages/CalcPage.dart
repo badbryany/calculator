@@ -58,6 +58,8 @@ class _CalcPageState extends State<CalcPage> {
   String subValue = '';
   String operator = '';
 
+  String error = '';
+
   Widget whichButton(dynamic e) {
     switch (e['type']) {
       case 'small':
@@ -81,6 +83,7 @@ class _CalcPageState extends State<CalcPage> {
             'operator': operator,
           },
           showResult,
+          showError,
         );
 
       case 'clear':
@@ -92,12 +95,14 @@ class _CalcPageState extends State<CalcPage> {
   }
 
   void addValue(String num) {
+    showError('');
     setState(() {
       value += num;
     });
   }
 
   void removeValue(bool all) {
+    showError('');
     if (all) {
       setState(() {
         value = '';
@@ -113,6 +118,7 @@ class _CalcPageState extends State<CalcPage> {
   }
 
   void setOperator(String _operator) {
+    showError('');
     operator = _operator;
     setState(() {
       subValue = value;
@@ -121,10 +127,17 @@ class _CalcPageState extends State<CalcPage> {
   }
 
   void showResult(result) {
+    showError('');
     setState(() {
       subValue = '';
       operator = '';
       value = result.toString();
+    });
+  }
+
+  void showError(String errorMessage) {
+    setState(() {
+      error = errorMessage;
     });
   }
 
@@ -168,6 +181,8 @@ class _CalcPageState extends State<CalcPage> {
                       value,
                       style: Theme.of(context).textTheme.headline1,
                     ),
+                    SizedBox(height: 20),
+                    Text(error, style: Theme.of(context).textTheme.caption)
                   ],
                 ),
               ),

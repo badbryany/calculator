@@ -163,14 +163,15 @@ class SolveButton extends StatelessWidget {
   final String text;
   final Map<String, dynamic> data;
   final Function showResult;
+  final Function showError;
 
-  SolveButton(this.text, this.data, this.showResult);
+  SolveButton(this.text, this.data, this.showResult, this.showError);
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Button(
         onTap: () {
-          String res = Calculator()
+          String res = Calculator(showError)
               .calculate(
                 value: data['value'],
                 subValue: data['subValue'],

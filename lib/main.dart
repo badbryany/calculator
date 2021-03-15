@@ -48,6 +48,11 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
             fontSize: 25,
           ),
+          caption: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.red,
+            fontSize: 23,
+          ),
         ),
       ),
       darkTheme: ThemeData(
@@ -65,6 +70,11 @@ class MyApp extends StatelessWidget {
             color: Color(0xff81510d),
             fontWeight: FontWeight.bold,
             fontSize: 25,
+          ),
+          caption: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.red,
+            fontSize: 23,
           ),
         ),
         fontFamily: 'Poppins',
