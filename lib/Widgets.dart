@@ -119,9 +119,10 @@ class ActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.all(10),
       child: InkWell(
+        onTap: () => setOperator(this.operator),
         child: Container(
-          margin: EdgeInsets.all(10),
           width: 70,
           height: 70,
           alignment: Alignment.center,
@@ -130,7 +131,6 @@ class ActionButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(25),
           ),
           child: InkWell(
-            onTap: () => setOperator(this.operator),
             child: child,
           ),
         ),
