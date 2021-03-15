@@ -44,22 +44,20 @@ class Button extends StatelessWidget {
 
 class SmallButton extends StatelessWidget {
   final String data;
+  final Function addValue;
 
-  SmallButton(this.data);
+  SmallButton(this.data, this.addValue);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Button(
-        /*padding: EdgeInsets.only(
-          top: 15,
-          bottom: 15,
-          right: 20,
-          left: 20,
-        ),*/
-        heightFactor: 0.7,
-        fontSize: 17,
-        text: data,
+      child: InkWell(
+        onTap: () => addValue(this.data),
+        child: Button(
+          heightFactor: 0.7,
+          fontSize: 17,
+          text: data,
+        ),
       ),
     );
   }

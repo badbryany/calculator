@@ -61,7 +61,7 @@ class _CalcPageState extends State<CalcPage> {
   Widget whichButton(dynamic e) {
     switch (e['type']) {
       case 'small':
-        return SmallButton(e['text']);
+        return SmallButton(e['text'], addValue);
 
       case 'normal':
         return NormalButton(e['text'], addValue);
@@ -142,6 +142,7 @@ class _CalcPageState extends State<CalcPage> {
                 margin: EdgeInsets.only(
                   top: 20,
                   right: 35,
+                  left: 35,
                 ),
                 width: double.infinity,
                 child: Column(
