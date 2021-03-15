@@ -4,6 +4,8 @@ import './Calculator.dart';
 
 class Button extends StatelessWidget {
   final String text;
+  final Function onTap;
+  final Function onLongPress;
   final double? widthFactor;
   final double? heightFactor;
   final Color? bgColor;
@@ -12,6 +14,8 @@ class Button extends StatelessWidget {
 
   Button({
     required this.text,
+    required this.onTap,
+    required this.onLongPress,
     this.widthFactor,
     this.heightFactor,
     this.bgColor,
@@ -23,19 +27,25 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(10),
-      width: 70 * ((widthFactor == null ? 1.0 : widthFactor) as double),
-      height: 70 * ((heightFactor == null ? 1.0 : heightFactor) as double),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: bgColor == null ? Theme.of(context).cardColor : this.bgColor,
-        borderRadius: BorderRadius.circular(25),
-      ),
-      child: Text(
-        text,
-        style: TextStyle(
-          color: this.textColor,
-          fontSize: this.fontSize == null ? 23 : this.fontSize,
-          fontWeight: FontWeight.bold,
+      child: InkWell(
+        onTap: () => this.onTap(),
+        onLongPress: () => this.onLongPress(),
+        child: Container(
+          width: 70 * ((widthFactor == null ? 1.0 : widthFactor) as double),
+          height: 70 * ((heightFactor == null ? 1.0 : heightFactor) as double),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: bgColor == null ? Theme.of(context).cardColor : this.bgColor,
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: this.textColor,
+              fontSize: this.fontSize == null ? 23 : this.fontSize,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ),
     );
@@ -51,13 +61,12 @@ class SmallButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: InkWell(
+      child: Button(
         onTap: () => addValue(this.data),
-        child: Button(
-          heightFactor: 0.7,
-          fontSize: 17,
-          text: data,
-        ),
+        onLongPress: () {},
+        heightFactor: 0.7,
+        fontSize: 17,
+        text: data,
       ),
     );
   }
@@ -72,11 +81,10 @@ class NormalButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: InkWell(
+      child: Button(
         onTap: () => addValue(data),
-        child: Button(
-          text: data,
-        ),
+        onLongPress: () {},
+        text: data,
       ),
     );
   }
@@ -91,18 +99,11 @@ class LargeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: InkWell(
+      child: Button(
         onTap: () => addValue(data),
-        child: Button(
-          /*padding: EdgeInsets.only(
-            top: 20,
-            bottom: 20,
-            right: 65,
-            left: 65,
-          ),*/
-          widthFactor: 2.3,
-          text: data,
-        ),
+        onLongPress: () {},
+        widthFactor: 2.3,
+        text: data,
       ),
     );
   }
@@ -119,7 +120,6 @@ class ActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: InkWell(
-        onTap: () => setOperator(this.operator),
         child: Container(
           margin: EdgeInsets.all(10),
           width: 70,
@@ -129,7 +129,10 @@ class ActionButton extends StatelessWidget {
             color: Theme.of(context).buttonColor,
             borderRadius: BorderRadius.circular(25),
           ),
-          child: child,
+          child: InkWell(
+            onTap: () => setOperator(this.operator),
+            child: child,
+          ),
         ),
       ),
     );
@@ -145,14 +148,12 @@ class ClearButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: InkWell(
+      child: Button(
         onTap: () => removeValue(false),
         onLongPress: () => removeValue(true),
-        child: Button(
-          bgColor: Theme.of(context).dividerColor,
-          textColor: Colors.red,
-          text: data,
-        ),
+        bgColor: Theme.of(context).dividerColor,
+        textColor: Colors.red,
+        text: data,
       ),
     );
   }
@@ -167,7 +168,7 @@ class SolveButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: InkWell(
+      child: Button(
         onTap: () {
           String res = Calculator()
               .calculate(
@@ -178,10 +179,9 @@ class SolveButton extends StatelessWidget {
               .toString();
           showResult(res);
         },
-        child: Button(
-          text: text,
-          bgColor: Theme.of(context).accentColor,
-        ),
+        onLongPress: () {},
+        text: text,
+        bgColor: Theme.of(context).accentColor,
       ),
     );
   }
