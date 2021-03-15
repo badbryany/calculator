@@ -46,7 +46,7 @@ class _SdPythagorasState extends State<SdPythagoras> {
       Color(0xffbdc92e),
     ];
     return Container(
-      height: double.infinity,
+      height: MediaQuery.of(context).size.height * 0.85,
       width: double.infinity,
       child: Stack(
         //crossAxisAlignment: CrossAxisAlignment.center,
