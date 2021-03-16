@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../Widgets.dart';
 import './calc/SdPythagoras.dart';
+import './calc/CalcTriAngle.dart';
 import './ExtraCalcPage.dart';
 
 class CalcPage extends StatefulWidget {
@@ -58,6 +59,7 @@ class _CalcPageState extends State<CalcPage> {
 
   List<dynamic> popUpItems = [
     {'text': 'Satz des Pythagoras', 'link': SdPythagoras()},
+    {'text': 'Dreieck berechnen', 'link': CalcTriAngle()},
   ];
 
   String value = '';
@@ -171,18 +173,26 @@ class _CalcPageState extends State<CalcPage> {
                               'Satz des Phytagoras', SdPythagoras()),
                         ),
                       );
-                    } else {
-                      print('nö');
+                      return;
+                    }
+                    if (value.runtimeType == CalcTriAngle) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ExtraCalcPage(
+                              'Dreieck berechnen', CalcTriAngle()),
+                        ),
+                      );
                     }
                   },
                   itemBuilder: (BuildContext context) => <PopupMenuEntry>[
                     ...popUpItems.map(
                       (e) => PopupMenuItem(
                         child: Text(
-                          'Satz des Pythagoras',
+                          e['text'],
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
-                        value: SdPythagoras(),
+                        value: e['link'],
                       ),
                     ),
                   ],
