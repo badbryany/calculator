@@ -116,7 +116,118 @@ class RegTriAngle {
     }
   }
 
+  Map<String, dynamic> sww({
+    double? a,
+    double? b,
+    double? c,
+    double? alpha,
+    double? betha,
+    double? gamma,
+  }) {
+    // CHECK IF ALL VARIABLES ARE GIVEN
+    List<bool> allVariablesGiven = [];
+
+    if (a != null) {
+      allVariablesGiven.add(true);
+    }
+    if (b != null) {
+      allVariablesGiven.add(true);
+    }
+    if (c != null) {
+      allVariablesGiven.add(true);
+    }
+    if (alpha != null) {
+      allVariablesGiven.add(true);
+    }
+    if (betha != null) {
+      allVariablesGiven.add(true);
+    }
+    if (gamma != null) {
+      allVariablesGiven.add(true);
+    }
+    // CHECK IF ALL VARIABLES ARE RIGHT
+    if (c != null && b != null ||
+        c != null && a != null ||
+        b != null && a != null) {
+      print('FALSE INPUT');
+      return {};
+    }
+    if (allVariablesGiven.length != 3) {
+      print('FALSE INPUT');
+      return {};
+    }
+
+    if (alpha == null && betha != null && gamma != null) {
+      alpha = 180 - betha - gamma;
+    }
+    if (betha == null && alpha != null && gamma != null) {
+      betha = 180 - alpha - gamma;
+    }
+    if (gamma == null && alpha != null && betha != null) {
+      gamma = 180 - betha - alpha;
+    }
+
+    if (a != null && alpha != null && betha != null && gamma != null) {
+      return this.getTriAngleByWWWS(
+        a: a,
+        alpha: alpha,
+        betha: betha,
+        gamma: gamma,
+      );
+    }
+    if (b != null && alpha != null && betha != null && gamma != null) {
+      return this.getTriAngleByWWWS(
+        b: b,
+        alpha: alpha,
+        betha: betha,
+        gamma: gamma,
+      );
+    }
+    if (c != null && alpha != null && betha != null && gamma != null) {
+      return this.getTriAngleByWWWS(
+        c: c,
+        alpha: alpha,
+        betha: betha,
+        gamma: gamma,
+      );
+    }
+    return {};
+  }
+
   wsw() {}
-  sww() {}
   ssw() {}
+
+  Map<String, dynamic> getTriAngleByWWWS({
+    double? a,
+    double? b,
+    double? c,
+    required double alpha,
+    required double betha,
+    required double gamma,
+  }) {
+    Angle sinAlpha = Angle.fromDegrees(alpha);
+    Angle sinBetha = Angle.fromDegrees(betha);
+    Angle sinGamma = Angle.fromDegrees(gamma);
+
+    if (a != null) {
+      b = a * sinBetha.sin / sinAlpha.sin;
+      c = a * sinGamma.sin / sinAlpha.sin;
+    }
+    if (b != null) {
+      a = b * sinAlpha.sin / sinBetha.sin;
+      c = b * sinGamma.sin / sinBetha.sin;
+    }
+    if (c != null) {
+      a = c * sinAlpha.sin / sinGamma.sin;
+      b = c * sinBetha.sin / sinGamma.sin;
+    }
+    return {
+      'a': a,
+      'b': b,
+      'c': c,
+      'alpha': alpha,
+      'betha': betha,
+      'gamma': gamma,
+    };
+  }
 }

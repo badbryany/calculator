@@ -24,13 +24,12 @@ class _CalcTriAngleState extends State<CalcTriAngle> {
   }
 
   void calc() {
-    print('a is missing');
-    Map<String, dynamic> angles2 = RegTriAngle().sws(
+    Map<String, dynamic> angles = RegTriAngle().sww(
       b: 4,
-      c: 3,
+      gamma: 36.9,
       alpha: 90,
     );
-    print(angles2);
+    print(angles);
   }
 
   @override
