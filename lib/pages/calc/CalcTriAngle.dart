@@ -24,9 +24,9 @@ class _CalcTriAngleState extends State<CalcTriAngle> {
   }
 
   void calc() {
-    Map<String, dynamic> angles = RegTriAngle().sww(
+    Map<String, dynamic> angles = RegTriAngle().wss(
       b: 4,
-      gamma: 36.9,
+      a: 5,
       alpha: 90,
     );
     print(angles);
