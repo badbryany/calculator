@@ -1,15 +1,46 @@
 import 'dart:math';
 import 'package:angles/angles.dart';
+import 'package:calculator/main.dart';
 
 import './Calculator.dart';
 
 class RegTriAngle {
   final Calculator calculator = Calculator((String foo) {});
 
+  Map<String, dynamic> getTriAngle({
+    double? a,
+    double? b,
+    double? c,
+    double? alpha,
+    double? betha,
+    double? gamma,
+  }) {
+    Function fun = this.whichCongruenceTheorem(
+      a: a,
+      b: b,
+      c: c,
+      alpha: alpha,
+      betha: betha,
+      gamma: gamma,
+    );
+    print(fun);
+    return fun(
+      a: a,
+      b: b,
+      c: c,
+      alpha: alpha,
+      betha: betha,
+      gamma: gamma,
+    );
+  }
+
   Map<String, dynamic> sss({
     required double a,
     required double b,
     required double c,
+    double? alpha,
+    double? betha,
+    double? gamma,
   }) {
     Map<String, dynamic> triAngle = {
       'a': a,
@@ -376,5 +407,66 @@ class RegTriAngle {
       'betha': betha,
       'gamma': gamma,
     };
+  }
+
+  Function whichCongruenceTheorem({
+    double? a,
+    double? b,
+    double? c,
+    double? alpha,
+    double? betha,
+    double? gamma,
+  }) {
+    Function congruenceFunction = ({
+      double? a,
+      double? b,
+      double? c,
+      double? alpha,
+      double? betha,
+      double? gamma,
+    }) {};
+
+    List<dynamic> parms = [a, b, c, alpha, betha, gamma];
+
+    List<bool> setParms = [];
+
+    for (int i = 0; i < parms.length; i++) {
+      if (isset(parms[i])) {
+        setParms.add(true);
+      }
+    }
+    if (setParms.length != 3) {
+      return () {};
+    }
+
+    // CHECK SSS
+    if (isset(a) && isset(b) && isset(c)) {
+      congruenceFunction = this.sss;
+    }
+    // CHECK
+    if (isset(alpha) && !isset(betha) && !isset(gamma) ||
+        isset(betha) && !isset(betha) && !isset(alpha) ||
+        isset(gamma) && !isset(betha) && !isset(alpha)) {
+      // 1 ANGLE IS SET
+      if (isset(a) && isset(b) ||
+          isset(a) && isset(c) ||
+          isset(b) && isset(c)) {
+        // 1 ANGLE AND 2 SITES ARE SET
+        congruenceFunction = this.sws;
+      }
+    }
+
+    if (isset(a) && !isset(b) && !isset(c) ||
+        isset(b) && !isset(c) && !isset(a) ||
+        isset(c) && !isset(b) && !isset(a)) {
+      // 1 SITE IS SET
+      if (isset(alpha) && isset(betha) ||
+          isset(alpha) && isset(gamma) ||
+          isset(betha) && isset(gamma)) {
+        // 1 SITE AND 2 ANGLES ARE SET
+        congruenceFunction = this.wsw;
+      }
+    }
+    return congruenceFunction;
   }
 }

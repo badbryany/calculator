@@ -7,6 +7,14 @@ void main() {
   runApp(MyApp());
 }
 
+bool isset(var foo) {
+  if (foo == null) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 class MyApp extends StatelessWidget {
   final Color darkBGColor = Color(0xff17181a);
   final Color lightBGColor = Color(0xfff6f8f9);
