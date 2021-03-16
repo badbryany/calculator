@@ -15,23 +15,27 @@ class RegTriAngle {
     double? betha,
     double? gamma,
   }) {
-    Function fun = this.whichCongruenceTheorem(
-      a: a,
-      b: b,
-      c: c,
-      alpha: alpha,
-      betha: betha,
-      gamma: gamma,
-    );
-    print(fun);
-    return fun(
-      a: a,
-      b: b,
-      c: c,
-      alpha: alpha,
-      betha: betha,
-      gamma: gamma,
-    );
+    try {
+      Function fun = this.whichCongruenceTheorem(
+        a: a,
+        b: b,
+        c: c,
+        alpha: alpha,
+        betha: betha,
+        gamma: gamma,
+      );
+      return fun(
+        a: a,
+        b: b,
+        c: c,
+        alpha: alpha,
+        betha: betha,
+        gamma: gamma,
+      );
+    } catch (e) {
+      print(e);
+      return {};
+    }
   }
 
   Map<String, dynamic> sss({
